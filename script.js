@@ -48,10 +48,10 @@ const next = document.getElementById('forward')
 playBtn.addEventListener("click", () => {
   if (audioElement.paused || audioElement.currentTime === 0) {
     audioElement.play();
-    playBtn.src = "../assets/asset-7.svg";
+    playBtn.src = "assets/asset-7.svg";
   } else {
     audioElement.pause();
-    playBtn.src = "../assets/asset-4.svg";
+    playBtn.src = "assets/asset-4.svg";
   }
 });
 
@@ -75,6 +75,4 @@ backward.addEventListener('click', () =>{
       songIndex = 7;
   else
     songIndex -= 1;
-
-  
 })

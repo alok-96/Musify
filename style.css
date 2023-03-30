@@ -134,7 +134,7 @@ a{
 }
 
 .box-2{
-    background: url(../assets/asset-1.jpg);
+    background: url(assets/asset-1.jpg);
     background-size: cover;
     background-position: center;
     width: 70%;
@@ -162,10 +162,6 @@ a{
     cursor: pointer;
 }
 
-.progress-bar::-moz-range-thumb{
-    background: var(--background-color);
-}
-
 .control-btn{
     align-items: center;
     gap: 30px;
@@ -176,13 +172,3 @@ a{
     cursor: pointer;
 }
 
-
-
-
-
-/* Media - Queries */
-/* @media screen and (max-width: 1176px) {
-    .container{
-        flex-direction: column;
-    }    
-} */
