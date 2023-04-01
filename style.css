@@ -76,7 +76,7 @@ a{
     gap: 50px;
 }
 
-li:hover{
+.nav-links li:hover{
     transform: scale(1.2);
     font-weight: 600;
 }
