@@ -135,6 +135,12 @@ audioElement.addEventListener("timeupdate", () => {
     (audioElement.currentTime / audioElement.duration) * 100
   );
   progressBar.value = progress;
+  if(progress == 100)
+  {
+    progressBar.value = 0;
+    playBtn.src = "assets/asset-4.svg";
+    cardBtn[songIndex].src = "assets/asset-4.svg";
+  }
 });
 
 progressBar.addEventListener("change", () => {
@@ -142,25 +148,17 @@ progressBar.addEventListener("change", () => {
 });
 
 
-// for (let i = 0; i < cardBtn.length; i++) {
-  
-//   cardBtn.src = "assets/asset-7.svg";
-// }
-
-
 for (let i = 0; i < cardIcons.length; i++) {
   cardIcons[i].addEventListener("click", ()=>{
     if (songIndex == i) {
-      pauseSong();
-      cardBtn[i].src = "assets/asset-4.svg";
+      if (audioElement.paused || audioElement.currentTime === 0) playSong();
+      else pauseSong();
     }
+    else {
     cardBtn[songIndex].src = "assets/asset-4.svg";
     songIndex = i;
-
-
-
     playSong();
     cardBtn[i].src = "assets/asset-7.svg";
-    changeSongDetails(songIndex);
+    changeSongDetails(songIndex);}  
   });
 }
