@@ -46,7 +46,8 @@ a{
 .header{
     background: var(--background-color);
     padding: 5px 10px;
-    color: var(--primary-text-color)
+    color: var(--primary-text-color);
+    position: relative;
 }
 
 .nav-bar{
@@ -66,16 +67,25 @@ a{
 }
 
 .nav-links{
-    width: 30%;
-    justify-content: space-around;
+    width: 40%;
+    justify-content: space-evenly;
     transition: 0.2s all ease-in-out;
 }
 
-.nav-links li:hover{
+.nav-links ul{
+    gap: 50px;
+}
+
+li:hover{
     transform: scale(1.2);
     font-weight: 600;
 }
 
+.nav-toggle{
+    filter: invert(1) sepia(1) saturate(46) hue-rotate(175deg);
+    cursor: pointer;
+    display: none;
+}
 
 /* Main Content */
 .container{
@@ -219,6 +229,34 @@ a{
     .cover-image{
         display: none;
     }   
+
+    .nav-toggle{
+        display: block;
+        margin-right: 20px;
+    }
+
+    .nav-links{
+        position: absolute;
+        background-color: var(--card-background-color);
+        width: 100%;
+        left:-100%;/* to hide in the normal state(without clicking in the icon)*/
+        top: 100%;
+        padding-block: 20px;
+        transition: 0.3s all ease-in-out;
+    }
+    
+    .nav-links ul{
+        flex-direction: column;
+        gap: 5px;
+    }
+
+    .nav-links ul li a{
+        color: var(--background-color)
+    }
+
+    .nav-links.active{
+        left: 0;
+    }
 }
 
 @media screen and (max-width: 500px) {

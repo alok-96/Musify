@@ -58,7 +58,7 @@ const songs = [
     artistName: "Justin Bieber",
     coverImage: "cover-images/asset-10.jpg",
     filePath: "music/10.mp3",
-  }
+  },
 ];
 
 let songIndex = 0;
@@ -73,21 +73,20 @@ const coverImage = document.querySelector(".cover-image");
 const cardIcons = document.querySelectorAll(".card-icons");
 const cardBtn = document.querySelectorAll("#card-btn");
 
-
-const playSong = function(){
+const playSong = function () {
   audioElement.play();
   playBtn.src = "assets/asset-7.svg";
   coverImage.style.backgroundImage = `url('${songs[songIndex].coverImage}')`;
   cardBtn[songIndex].src = "assets/asset-7.svg";
-}
+};
 
-const pauseSong = function(){
+const pauseSong = function () {
   audioElement.pause();
   playBtn.src = "assets/asset-4.svg";
   cardBtn[songIndex].src = "assets/asset-4.svg";
-}
+};
 
-//Function to change the song details 
+//Function to change the song details
 const changeSongDetails = function (songIndex) {
   audioElement.src = songs[songIndex].filePath;
   audioElement.play();
@@ -101,17 +100,14 @@ const changeSongDetails = function (songIndex) {
 
 //Handling Play and pause events
 playBtn.addEventListener("click", () => {
-  if (audioElement.paused || audioElement.currentTime === 0) 
-    playSong();
-   else 
-    pauseSong();
+  if (audioElement.paused || audioElement.currentTime === 0) playSong();
+  else pauseSong();
 });
-
 
 //Handling Previous Button
 backward.addEventListener("click", () => {
   cardBtn[songIndex].src = "assets/asset-4.svg";
-  
+
   if (songIndex == 0) songIndex = 9;
   else songIndex -= 1;
   cardBtn[songIndex].src = "assets/asset-7.svg";
@@ -121,7 +117,7 @@ backward.addEventListener("click", () => {
 //Handling Next Button
 forward.addEventListener("click", () => {
   cardBtn[songIndex].src = "assets/asset-4.svg";
-  
+
   if (songIndex == 9) songIndex = 0;
   else songIndex += 1;
   audioElement.src = songs[songIndex].filePath;
@@ -135,8 +131,7 @@ audioElement.addEventListener("timeupdate", () => {
     (audioElement.currentTime / audioElement.duration) * 100
   );
   progressBar.value = progress;
-  if(progress == 100)
-  {
+  if (progress == 100) {
     progressBar.value = 0;
     playBtn.src = "assets/asset-4.svg";
     cardBtn[songIndex].src = "assets/asset-4.svg";
@@ -147,18 +142,26 @@ progressBar.addEventListener("change", () => {
   audioElement.currentTime = (progressBar.value * audioElement.duration) / 100;
 });
 
-
+//Fuctionality of left side music cards
 for (let i = 0; i < cardIcons.length; i++) {
-  cardIcons[i].addEventListener("click", ()=>{
+  cardIcons[i].addEventListener("click", () => {
     if (songIndex == i) {
       if (audioElement.paused || audioElement.currentTime === 0) playSong();
       else pauseSong();
+    } else {
+      cardBtn[songIndex].src = "assets/asset-4.svg";
+      songIndex = i;
+      playSong();
+      cardBtn[i].src = "assets/asset-7.svg";
+      changeSongDetails(songIndex);
     }
-    else {
-    cardBtn[songIndex].src = "assets/asset-4.svg";
-    songIndex = i;
-    playSong();
-    cardBtn[i].src = "assets/asset-7.svg";
-    changeSongDetails(songIndex);}  
   });
 }
+
+//toggle button
+const menuLink = document.querySelector(".nav-links");
+const toggleBtn = document.querySelector(".nav-toggle");
+
+toggleBtn.addEventListener("click", () => {
+  menuLink.classList.toggle("active");
+});
