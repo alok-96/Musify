@@ -147,21 +147,20 @@ progressBar.addEventListener("change", () => {
 //   cardBtn.src = "assets/asset-7.svg";
 // }
 
-let play = 0;
+
 for (let i = 0; i < cardIcons.length; i++) {
   cardIcons[i].addEventListener("click", ()=>{
-    songIndex = i;
-    // console.log(play);
-    if (audioElement.paused || audioElement.currentTime === 0) {
-      // play = 1;
-      playSong();
-      cardBtn[i].src = "assets/asset-7.svg";
-      changeSongDetails(songIndex);
-    } else {
-      // play = 0;
+    if (songIndex == i) {
       pauseSong();
       cardBtn[i].src = "assets/asset-4.svg";
     }
-    // console.log(play);
+    cardBtn[songIndex].src = "assets/asset-4.svg";
+    songIndex = i;
+
+
+
+    playSong();
+    cardBtn[i].src = "assets/asset-7.svg";
+    changeSongDetails(songIndex);
   });
 }
