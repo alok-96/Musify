@@ -1,39 +1,64 @@
 const songs = [
   {
     songName: "Believer",
-    singer: "Imagine Dragons",
+    artistName: "Imagine Dragons",
+    coverImage: "cover-images/asset-1.jpg",
     filePath: "music/1.mp3",
   },
   {
     songName: "Chann Sitare",
-    singer: "Ammy Virk",
+    artistName: "Ammy Virk",
+    coverImage: "cover-images/asset-2.jpg",
     filePath: "music/2.mp3",
   },
   {
     songName: "Infinity",
-    singer: "Jaymes Young",
+    artistName: "Jaymes Young",
+    coverImage: "cover-images/asset-3.jpeg",
     filePath: "music/3.mp3",
   },
   {
     songName: "Let Me Down Slowly",
-    singer: "Alec Benjamin",
+    artistName: "Alec Benjamin",
+    coverImage: "cover-images/asset-4.jpg",
     filePath: "music/4.mp3",
   },
   {
     songName: "Love Your Voice",
-    singer: "Jony",
+    artistName: "Jony",
+    coverImage: "cover-images/asset-5.jpg",
     filePath: "music/5.mp3",
   },
   {
     songName: "Muskurana Tera",
-    singer: "Sajj Bhatt",
+    artistName: "Saaj Bhatt",
+    coverImage: "cover-images/asset-6.jpg",
     filePath: "music/6.mp3",
   },
   {
     songName: "Safari",
-    singer: "Serena",
+    artistName: "Serena",
+    coverImage: "cover-images/asset-7.jpeg",
     filePath: "music/7.mp3",
   },
+  {
+    songName: "Such a Whore",
+    artistName: "JVLA",
+    coverImage: "cover-images/asset-8.jpeg",
+    filePath: "music/8.mp3",
+  },
+  {
+    songName: "Taki Taki",
+    artistName: "Selena Gomez",
+    coverImage: "cover-images/asset-9.jpg",
+    filePath: "music/9.mp3",
+  },
+  {
+    songName: "Yummy",
+    artistName: "Justin Bieber",
+    coverImage: "cover-images/asset-10.jpg",
+    filePath: "music/10.mp3",
+  }
 ];
 
 let songIndex = 0;
@@ -42,16 +67,66 @@ const playBtn = document.getElementById("play");
 const progressBar = document.getElementById("progress-bar");
 const previous = document.getElementById("backward");
 const next = document.getElementById("forward");
+const musicName = document.querySelector(".music-name");
+const artistName = document.querySelector(".artist-name");
+const coverImage = document.querySelector(".cover-image");
+const cardIcons = document.querySelectorAll(".card-icons");
+const cardBtn = document.querySelectorAll("#card-btn");
+
+
+const playSong = function(){
+  audioElement.play();
+  playBtn.src = "assets/asset-7.svg";
+  coverImage.style.backgroundImage = `url('${songs[songIndex].coverImage}')`;
+  cardBtn[songIndex].src = "assets/asset-7.svg";
+}
+
+const pauseSong = function(){
+  audioElement.pause();
+  playBtn.src = "assets/asset-4.svg";
+  cardBtn[songIndex].src = "assets/asset-4.svg";
+}
+
+//Function to change the song details 
+const changeSongDetails = function (songIndex) {
+  audioElement.src = songs[songIndex].filePath;
+  audioElement.play();
+  progressBar.value = 0;
+  playBtn.src = "assets/asset-7.svg";
+
+  musicName.innerHTML = songs[songIndex].songName;
+  artistName.innerHTML = songs[songIndex].artistName;
+  coverImage.style.backgroundImage = `url('${songs[songIndex].coverImage}')`;
+};
 
 //Handling Play and pause events
 playBtn.addEventListener("click", () => {
-  if (audioElement.paused || audioElement.currentTime === 0) {
-    audioElement.play();
-    playBtn.src = "assets/asset-7.svg";
-  } else {
-    audioElement.pause();
-    playBtn.src = "assets/asset-4.svg";
-  }
+  if (audioElement.paused || audioElement.currentTime === 0) 
+    playSong();
+   else 
+    pauseSong();
+});
+
+
+//Handling Previous Button
+backward.addEventListener("click", () => {
+  cardBtn[songIndex].src = "assets/asset-4.svg";
+  
+  if (songIndex == 0) songIndex = 9;
+  else songIndex -= 1;
+  cardBtn[songIndex].src = "assets/asset-7.svg";
+  changeSongDetails(songIndex);
+});
+
+//Handling Next Button
+forward.addEventListener("click", () => {
+  cardBtn[songIndex].src = "assets/asset-4.svg";
+  
+  if (songIndex == 9) songIndex = 0;
+  else songIndex += 1;
+  audioElement.src = songs[songIndex].filePath;
+  cardBtn[songIndex].src = "assets/asset-7.svg";
+  changeSongDetails(songIndex);
 });
 
 //Updating the progress Bar
@@ -59,7 +134,6 @@ audioElement.addEventListener("timeupdate", () => {
   var progress = parseInt(
     (audioElement.currentTime / audioElement.duration) * 100
   );
-  console.log(progress);
   progressBar.value = progress;
 });
 
@@ -67,9 +141,27 @@ progressBar.addEventListener("change", () => {
   audioElement.currentTime = (progressBar.value * audioElement.duration) / 100;
 });
 
-//Handling previous and next Btn
-console.log(audioElement);
-backward.addEventListener("click", () => {
-  if (songIndex === 0) songIndex = 7;
-  else songIndex -= 1;
-});
+
+// for (let i = 0; i < cardBtn.length; i++) {
+  
+//   cardBtn.src = "assets/asset-7.svg";
+// }
+
+let play = 0;
+for (let i = 0; i < cardIcons.length; i++) {
+  cardIcons[i].addEventListener("click", ()=>{
+    songIndex = i;
+    // console.log(play);
+    if (audioElement.paused || audioElement.currentTime === 0) {
+      // play = 1;
+      playSong();
+      cardBtn[i].src = "assets/asset-7.svg";
+      changeSongDetails(songIndex);
+    } else {
+      // play = 0;
+      pauseSong();
+      cardBtn[i].src = "assets/asset-4.svg";
+    }
+    // console.log(play);
+  });
+}
