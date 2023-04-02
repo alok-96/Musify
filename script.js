@@ -42,9 +42,9 @@ const songs = [
     filePath: "music/7.mp3",
   },
   {
-    songName: "Such a Whore",
-    artistName: "JVLA",
-    coverImage: "cover-images/asset-8.jpeg",
+    songName: "Thodi Jagah",
+    artistName: "Arijit Singh",
+    coverImage: "cover-images/asset-8.jpg",
     filePath: "music/8.mp3",
   },
   {
