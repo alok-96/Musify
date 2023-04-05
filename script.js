@@ -188,4 +188,3 @@ document.addEventListener("keydown", function(e){
   
 })
 
-// Handling 
