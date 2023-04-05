@@ -242,7 +242,6 @@ a{
         left:-100%;/* to hide in the normal state(without clicking in the icon)*/
         top: 100%;
         padding-block: 20px;
-        transition: 0.3s all ease-in-out;
     }
     
     .nav-links ul{

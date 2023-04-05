@@ -86,6 +86,25 @@ const pauseSong = function () {
   cardBtn[songIndex].src = "assets/asset-4.svg";
 };
 
+const playPreviousSong = function(){
+  cardBtn[songIndex].src = "assets/asset-4.svg";
+
+  if (songIndex == 0) songIndex = 9;
+  else songIndex -= 1;
+  cardBtn[songIndex].src = "assets/asset-7.svg";
+  changeSongDetails(songIndex);
+}
+
+const playNextSong = function(){
+  cardBtn[songIndex].src = "assets/asset-4.svg";
+
+  if (songIndex == 9) songIndex = 0;
+  else songIndex += 1;
+  audioElement.src = songs[songIndex].filePath;
+  cardBtn[songIndex].src = "assets/asset-7.svg";
+  changeSongDetails(songIndex);
+}
+
 //Function to change the song details
 const changeSongDetails = function (songIndex) {
   audioElement.src = songs[songIndex].filePath;
@@ -106,23 +125,12 @@ playBtn.addEventListener("click", () => {
 
 //Handling Previous Button
 backward.addEventListener("click", () => {
-  cardBtn[songIndex].src = "assets/asset-4.svg";
-
-  if (songIndex == 0) songIndex = 9;
-  else songIndex -= 1;
-  cardBtn[songIndex].src = "assets/asset-7.svg";
-  changeSongDetails(songIndex);
+  playPreviousSong();
 });
 
 //Handling Next Button
 forward.addEventListener("click", () => {
-  cardBtn[songIndex].src = "assets/asset-4.svg";
-
-  if (songIndex == 9) songIndex = 0;
-  else songIndex += 1;
-  audioElement.src = songs[songIndex].filePath;
-  cardBtn[songIndex].src = "assets/asset-7.svg";
-  changeSongDetails(songIndex);
+  playNextSong();
 });
 
 //Updating the progress Bar
@@ -158,10 +166,26 @@ for (let i = 0; i < cardIcons.length; i++) {
   });
 }
 
-//toggle button
+//Toggle button
 const menuLink = document.querySelector(".nav-links");
 const toggleBtn = document.querySelector(".nav-toggle");
 
 toggleBtn.addEventListener("click", () => {
   menuLink.classList.toggle("active");
 });
+
+// Handling Space bar (Play - Pause) and Left-Right Arrow key press
+document.addEventListener("keydown", function(e){
+  if(e.key == " ")
+  {
+    if (audioElement.paused || audioElement.currentTime === 0) playSong();
+    else pauseSong();
+  }
+  else if(e.key == "ArrowLeft")
+  playPreviousSong();
+  else if(e.key == "ArrowRight")
+  playNextSong();
+  
+})
+
+// Handling 
