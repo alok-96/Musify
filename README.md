@@ -3,7 +3,7 @@
 - Musify is developed using ```HTML``` ```CSS``` and ```JAVASCRIPT```.
   
 #
-![image](https://user-images.githubusercontent.com/90456532/229328397-2d3aa279-e2f4-4a30-87d2-b7c0306fef5d.png)
+![image](https://user-images.githubusercontent.com/90456532/235373789-0c024777-fcfd-467d-936f-3c67faab5ca7.png)
 
 
 
