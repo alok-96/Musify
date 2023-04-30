@@ -69,7 +69,6 @@ a{
 .nav-links{
     width: 40%;
     justify-content: space-evenly;
-    transition: 0.2s all ease-in-out;
 }
 
 .nav-links ul{
@@ -117,6 +116,8 @@ a{
     width: 100%;
     border-radius: 20px;
     justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
     box-shadow: rgba(0, 0, 0, 0.3) 0px 5px 5px 5px; 
 }
 
@@ -169,6 +170,7 @@ a{
     height: 6px;
     border-radius: 5px;
     margin-block: 10px;
+    background-color: linear-gradient(to right, red 0%, red 50%, base 50%, base 100%);
 }
 
 .progress-bar::-webkit-slider-thumb{
@@ -187,6 +189,11 @@ a{
 
 .icons{
     filter: invert(0.5) sepia(1) saturate(358) hue-rotate(185deg);
+    cursor: pointer;
+}
+
+.icon{
+    filter: invert(0.5) sepia(0) saturate(196) hue-rotate(124deg);
     cursor: pointer;
 }
 
@@ -290,5 +297,9 @@ a{
 
     .song-details p{
         font-size: 0.8rem;
+    }
+
+    .control-btn {
+        gap: 20px;
     }
 }

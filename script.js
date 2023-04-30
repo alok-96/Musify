@@ -62,15 +62,19 @@ const songs = [
 ];
 
 let songIndex = 0;
+let shuffleStatus = 0;
+let repeatStatus = 0;
 let audioElement = new Audio("music/1.mp3");
 const playBtn = document.getElementById("play");
 const progressBar = document.getElementById("progress-bar");
 const previous = document.getElementById("backward");
 const next = document.getElementById("forward");
+const repeat = document.getElementById("repeat");
+const shuffle = document.getElementById("shuffle");
 const musicName = document.querySelector(".music-name");
 const artistName = document.querySelector(".artist-name");
 const coverImage = document.querySelector(".cover-image");
-const cardIcons = document.querySelectorAll(".card-icons");
+const cardIcons = document.querySelectorAll(".music-cards");
 const cardBtn = document.querySelectorAll("#card-btn");
 
 const playSong = function () {
@@ -86,16 +90,16 @@ const pauseSong = function () {
   cardBtn[songIndex].src = "assets/asset-4.svg";
 };
 
-const playPreviousSong = function(){
+const playPreviousSong = function () {
   cardBtn[songIndex].src = "assets/asset-4.svg";
 
   if (songIndex == 0) songIndex = 9;
   else songIndex -= 1;
   cardBtn[songIndex].src = "assets/asset-7.svg";
   changeSongDetails(songIndex);
-}
+};
 
-const playNextSong = function(){
+const playNextSong = function () {
   cardBtn[songIndex].src = "assets/asset-4.svg";
 
   if (songIndex == 9) songIndex = 0;
@@ -103,7 +107,7 @@ const playNextSong = function(){
   audioElement.src = songs[songIndex].filePath;
   cardBtn[songIndex].src = "assets/asset-7.svg";
   changeSongDetails(songIndex);
-}
+};
 
 //Function to change the song details
 const changeSongDetails = function (songIndex) {
@@ -133,6 +137,20 @@ forward.addEventListener("click", () => {
   playNextSong();
 });
 
+//Handling shuffle Button
+shuffle.addEventListener("click", () => {
+  shuffleStatus === 0 ? (shuffleStatus = 1) : (shuffleStatus = 0);
+  shuffle.classList.toggle('icons');
+  shuffle.classList.toggle('icon');
+});
+
+//Handling repeat Button
+repeat.addEventListener("click", () => {
+  repeatStatus === 0 ? (repeatStatus = 1) : (repeatStatus = 0);
+  repeat.classList.toggle("icons");
+  repeat.classList.toggle("icon");
+});
+
 //Updating the progress Bar
 audioElement.addEventListener("timeupdate", () => {
   var progress = parseInt(
@@ -140,9 +158,26 @@ audioElement.addEventListener("timeupdate", () => {
   );
   progressBar.value = progress;
   if (progress == 100) {
-    progressBar.value = 0;
-    playBtn.src = "assets/asset-4.svg";
-    cardBtn[songIndex].src = "assets/asset-4.svg";
+    if (songIndex < 9) {
+      if (repeatStatus) playSong();
+      else if (shuffleStatus) {
+        cardBtn[songIndex].src = "assets/asset-4.svg";
+        songIndex = Math.floor(Math.random() * 10);
+        changeSongDetails(songIndex);
+        playSong();
+      } else {
+        playNextSong();
+        changeSongDetails();
+      }
+    } else {
+      progressBar.value = 0;
+      playBtn.src = "assets/asset-4.svg";
+      cardBtn[songIndex].src = "assets/asset-4.svg";
+      songIndex = 0;
+      musicName.innerHTML = songs[songIndex].songName;
+      artistName.innerHTML = songs[songIndex].artistName;
+      coverImage.style.backgroundImage = `url('${songs[songIndex].coverImage}')`;
+    }
   }
 });
 
@@ -175,16 +210,10 @@ toggleBtn.addEventListener("click", () => {
 });
 
 // Handling Space bar (Play - Pause) and Left-Right Arrow key press
-document.addEventListener("keydown", function(e){
-  if(e.key == " ")
-  {
+document.addEventListener("keydown", function (e) {
+  if (e.key == " ") {
     if (audioElement.paused || audioElement.currentTime === 0) playSong();
     else pauseSong();
-  }
-  else if(e.key == "ArrowLeft")
-  playPreviousSong();
-  else if(e.key == "ArrowRight")
-  playNextSong();
-  
-})
-
+  } else if (e.key == "ArrowLeft") playPreviousSong();
+  else if (e.key == "ArrowRight") playNextSong();
+});
