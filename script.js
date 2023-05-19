@@ -76,6 +76,8 @@ const artistName = document.querySelector(".artist-name");
 const coverImage = document.querySelector(".cover-image");
 const cardIcons = document.querySelectorAll(".music-cards");
 const cardBtn = document.querySelectorAll("#card-btn");
+const musicCurrentTime = document.querySelector(".current");
+var musicTotalTime = document.querySelector(".total");
 
 const playSong = function () {
   audioElement.play();
@@ -112,8 +114,8 @@ const playNextSong = function () {
 //Function to change the song details
 const changeSongDetails = function (songIndex) {
   audioElement.src = songs[songIndex].filePath;
-  audioElement.play();
   progressBar.value = 0;
+  audioElement.play();
   playBtn.src = "assets/asset-7.svg";
 
   musicName.innerHTML = songs[songIndex].songName;
@@ -140,8 +142,8 @@ forward.addEventListener("click", () => {
 //Handling shuffle Button
 shuffle.addEventListener("click", () => {
   shuffleStatus === 0 ? (shuffleStatus = 1) : (shuffleStatus = 0);
-  shuffle.classList.toggle('icons');
-  shuffle.classList.toggle('icon');
+  shuffle.classList.toggle("icons");
+  shuffle.classList.toggle("icon");
 });
 
 //Handling repeat Button
@@ -157,6 +159,25 @@ audioElement.addEventListener("timeupdate", () => {
     (audioElement.currentTime / audioElement.duration) * 100
   );
   progressBar.value = progress;
+  setInterval(() => {
+    progressBar.style.backgroundColor = `linear-gradient(to right, red + ${progress} + %, red 100%`; 
+  }, 100);
+
+  audioElement.addEventListener("loadeddata", () => {
+    let audioDuration = audioElement.duration;
+    let totalMin = Math.floor(audioDuration / 60);
+    let totalSec = Math.floor(audioDuration % 60);
+    if (totalMin < 10) totalMin = `0${totalMin}`;
+    if (totalSec < 10) totalSec = `0${totalSec}`;
+    musicTotalTime.innerHTML = `${totalMin}:${totalSec}`;
+  });
+
+  let currentMin = Math.floor((audioElement.currentTime) / 60);
+  let currentSec = Math.floor((audioElement.currentTime) % 60);
+  if (currentMin < 10) currentMin = `0${currentMin}`;
+  if (currentSec < 10) currentSec = `0${currentSec}`;
+  musicCurrentTime.innerHTML = `${currentMin}:${currentSec}`;
+
   if (progress == 100) {
     if (songIndex < 9) {
       if (repeatStatus) playSong();

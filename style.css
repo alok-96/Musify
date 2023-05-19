@@ -15,8 +15,12 @@ body{
     --margin: 40px;
     --primary-text-color: white;
     --background-color: rgb(43, 86, 97);
-    /* --card-background-color: rgb(88, 116, 123); */
     --card-background-color: #e7e7e7;
+}
+
+::selection {
+    color: var(--primary-text-color);
+    background: rgb(43, 86, 97, 0.8);
 }
 
 h1{
@@ -67,8 +71,7 @@ a{
 }
 
 .nav-links{
-    width: 40%;
-    justify-content: space-evenly;
+    padding-left: 20px;
 }
 
 .nav-links ul{
@@ -76,7 +79,7 @@ a{
 }
 
 .nav-links li:hover{
-    transform: scale(1.2);
+    color: var(--background-color);
     font-weight: 600;
 }
 
@@ -112,7 +115,7 @@ a{
 .music-cards{
     background-color: var(--card-background-color);
     color: black;
-    padding: 5px 15px;
+    padding: 5px 20px;
     width: 100%;
     border-radius: 20px;
     justify-content: space-between;
@@ -137,7 +140,6 @@ a{
     border-radius: 20px;
     padding-block: 10px;
     flex-direction: column;
-    align-items: center;
     justify-content: space-evenly;
 }
 
@@ -151,6 +153,7 @@ a{
     border-radius: 20px;
     transform: translateY(-18%);
     transition: 0.2s all ease-in-out;
+    align-self: center;
 }
 
 .cover-image:hover{
@@ -164,6 +167,7 @@ a{
 
 .progress-bar{
     width: 80%;
+    align-self: center;
     background: rgba(43, 86, 97, 0.4);
     cursor: pointer;
     -webkit-appearance: none;
@@ -182,8 +186,18 @@ a{
     box-shadow: 0 5px 5px rgba(0, 0, 0, 0.3);
 }
 
+.timer{
+    justify-content: space-between;
+    width: 80%;
+    align-self: center;
+}
+
+.current, .total {
+    font-size: 0.8rem;
+}
+
 .control-btn{
-    align-items: center;
+    justify-content: center;
     gap: 30px;
 }
 
@@ -235,24 +249,28 @@ a{
 @media screen and (max-width: 750px) {
     .cover-image{
         display: none;
-    }   
+    } 
+    
+    .box-1 {
+        flex-basis: 70%;
+    }
 
     .nav-toggle{
         display: block;
-        margin-right: 20px;
+        margin-right: 10px;
     }
 
     .nav-links{
         position: absolute;
         background-color: var(--card-background-color);
         width: 100%;
-        left:-100%;/* to hide in the normal state(without clicking in the icon)*/
+        left: -100%; /*to hide in the normal state(without clicking in the icon)*/
         top: 100%;
         padding-block: 20px;
     }
     
     .nav-links ul{
-        flex-direction: column;
+        flex-direction: column; 
         gap: 5px;
     }
 
@@ -266,9 +284,12 @@ a{
 }
 
 @media screen and (max-width: 500px) {
-    .box-1{
+    .box-1 {
         flex-basis: 80%;
+        padding-block: 100px;
+        gap: 10px;
     }
+
     .left h1{
         font-size: 1.5rem;
     }  
@@ -283,6 +304,12 @@ a{
 
     .song-details p {
         font-size: 0.8rem;
+    }
+
+    .container{
+        padding-block : 25px;
+        width: 90%;
+        margin-top: 20px;
     }
 }
 
@@ -301,5 +328,18 @@ a{
 
     .control-btn {
         gap: 20px;
+    }
+
+    .logo-section {
+        padding-left: 0px;
+    }
+
+    .logo-section li p {
+        font-size: 1.1rem;
+    }
+
+    .box-1{
+        padding-block: 85px;
+        gap: 5px;
     }
 }
